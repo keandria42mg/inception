@@ -1,7 +1,14 @@
 FROM debian:bookworm
 
-RUN apt-get update -y && apt-get install nginx -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+RUN	apt-get update -y && apt-get install -y nginx openssl
 
-EXPOSE 443
+COPY	./conf/nginx.conf	/etc/nginx/conf.d
 
-CMD ["nginx", "-g", "daemon off;"]
+COPY ./tools/entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
+  ln -sf /dev/stderr /var/log/nginx/error.log
+
+CMD  ["nginx", "-g", "daemon off;"]
