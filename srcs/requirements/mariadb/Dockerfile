@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:bookworm-slim
 
 RUN	apt-get update -y && \
   apt-get install -y \
@@ -16,9 +16,7 @@ CMD chmod 644 /etc/mysql/50-server.cnf
 
 COPY ./tools/entrypoint.sh /usr/local/bin/
 
-EXPOSE 3306
-
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # Command launched at the end of the setup
-CMD ["/usr/bin/mysqld_safe", "--datadir=/var/lib/mysql"]
+CMD ["/usr/bin/mysqld_safe", "--defaults-file=/etc/mysql/50-server.cnf", "--datadir=/var/lib/mysql"]

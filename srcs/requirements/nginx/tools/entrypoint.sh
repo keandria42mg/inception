@@ -1,6 +1,6 @@
 #!/bin/sh
 
-USERNAME=${USERNAME:-keandria}
+USERNAME=${USERNAME:-huaydin}
 
 if [ -f "/etc/nginx/conf.d/nginx.conf" ]; then
   sed -i 's/keandria\.42\.fr/$(USERNAME)\.42\.fr/g' /etc/nginx/conf.d/nginx.conf

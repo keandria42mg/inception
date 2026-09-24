@@ -3,7 +3,7 @@
 DATABASE_DIR="/var/lib/mysql/${MYSQL_DATABASE}"
 
 if [ ! -d "$DATABASE_DIR" ]; then
-  /usr/bin/mysqld_safe --datadir=/var/lib/mysql &
+  /usr/bin/mysqld_safe --defaults-file=/etc/mysql/50-server.cnf --datadir=/var/lib/mysql &
 
   until mysqladmin ping 2>/dev/null; do
     sleep 2
